@@ -7,8 +7,7 @@ defmodule SocialNetworksWeb.Client.Http.SocialUpdatesClient do
     standardize_api_response(body, params[:name])
   end
 
-  defp standardize_api_response(body, name) do
-    updates = force_response_to_list(body)
+  defp standardize_api_response(updates, name) do
     Enum.map(updates, fn update -> map_keys(update, name) end)
   end
 
@@ -25,19 +24,6 @@ defmodule SocialNetworksWeb.Client.Http.SocialUpdatesClient do
 
       _ ->
         raise ArgumentError, message: "invalid social network name"
-    end
-  end
-
-  def force_response_to_list(body) do
-    case(body) do
-      x when is_map(x) ->
-        [body]
-
-      x when is_list(x) ->
-        body
-
-      _ ->
-        []
     end
   end
 end

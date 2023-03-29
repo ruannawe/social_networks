@@ -11,6 +11,7 @@ defmodule SocialNetworksWeb.Jobs.SocialSync do
     SocialUpdate.init()
 
     schedule_job()
+
     {:ok, nil}
   end
 
