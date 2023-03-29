@@ -37,3 +37,6 @@ npm-debug.log
 
 # Hide environment variables
 .env
+
+# IDE files
+.idea
