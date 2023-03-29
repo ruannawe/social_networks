@@ -2,7 +2,7 @@ defmodule SocialNetworksWeb.Client.Http.SocialUpdatesClient do
   alias SocialNetworksWeb.Client.Http.BaseClient
 
   def get(params) do
-    {:ok, body} = BaseClient.get(params[:url])
+    body = BaseClient.get(params[:url])
 
     standardize_api_response(body, params[:name])
   end

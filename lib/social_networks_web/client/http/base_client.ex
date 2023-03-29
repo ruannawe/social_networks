@@ -5,13 +5,13 @@ defmodule SocialNetworksWeb.Client.Http.BaseClient do
     try do
       case HTTPoison.get(url) do
         {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-          {:ok, Poison.decode!(body)}
+          Poison.decode!(body)
 
         {:error, %HTTPoison.Error{reason: _reason}} ->
-          {:ok, []}
+          []
       end
     rescue
-      _ -> {:ok, []}
+      _ -> []
     end
   end
 end
