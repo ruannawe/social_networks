@@ -14,7 +14,8 @@ defmodule SocialNetworksWeb.Client.Http.BaseClient do
           []
       end
     rescue
-      _ -> []
+      _ ->
+        []
     end
   end
 

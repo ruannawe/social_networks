@@ -43,7 +43,7 @@ defmodule SocialNetworks.Models.SocialUpdateTest do
     end
   end
 
-  describe "save/2" do
+  describe "insert/2" do
     setup do
       # Set up the ETS table with some sample data
       SocialUpdate.init()
@@ -51,15 +51,17 @@ defmodule SocialNetworks.Models.SocialUpdateTest do
       :ok
     end
 
-    test "saves updates for a valid social network" do
-      SocialUpdate.save("twitter", [%{content: "test content", username: "test user"}])
+    test "insert updates for a valid social network" do
+      SocialUpdate.insert("twitter", [%{content: "test content", username: "test user"}])
       assert SocialUpdate.lookup("twitter") == [%{content: "test content", username: "test user"}]
     end
 
     test "raises an error for an invalid social network" do
       result =
         try do
-          SocialUpdate.save("invalid_network", [%{content: "test content", username: "test user"}])
+          SocialUpdate.insert("invalid_network", [
+            %{content: "test content", username: "test user"}
+          ])
         rescue
           ArgumentError -> {:error, "Invalid social network"}
         end

@@ -1,6 +1,7 @@
 defmodule SocialNetworksWeb.Jobs.SocialSync do
-  import SocialNetworksWeb.Client.Http.SocialUpdatesClient
+  alias SocialNetworksWeb.Client.Http.SocialUpdatesClient
   alias SocialNetworks.Models.SocialUpdate
+
   use GenServer
 
   def start_link(args) do
@@ -27,14 +28,11 @@ defmodule SocialNetworksWeb.Jobs.SocialSync do
 
   defp set_updates() do
     Enum.each(social_networks(), fn social_network ->
-      updates = get(social_network)
+      updates = SocialUpdatesClient.get(social_network)
 
-      if updates != [], do: save(updates, social_network[:name])
+      if updates != [],
+        do: SocialUpdate.insert(to_string(social_network[:name]), updates)
     end)
-  end
-
-  defp save(updates, name) do
-    SocialUpdate.save(to_string(name), updates)
   end
 
   defp social_networks() do

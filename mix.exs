@@ -19,7 +19,7 @@ defmodule SocialNetworks.MixProject do
   def application do
     [
       mod: {SocialNetworks.Application, []},
-      extra_applications: [:logger, :runtime_tools, :httpoison]
+      extra_applications: [:logger, :runtime_tools]
     ]
   end
 

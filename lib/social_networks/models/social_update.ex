@@ -20,7 +20,7 @@ defmodule SocialNetworks.Models.SocialUpdate do
     :ets.lookup_element(:social_update, to_string(social_network), 2)
   end
 
-  def save(social_network, updates) do
+  def insert(social_network, updates) do
     unless available_social_networks() |> Enum.member?(social_network) do
       raise ArgumentError, "Invalid social network"
     end
