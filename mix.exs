@@ -19,7 +19,7 @@ defmodule SocialNetworks.MixProject do
   def application do
     [
       mod: {SocialNetworks.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :httpoison]
     ]
   end
 
@@ -50,8 +50,9 @@ defmodule SocialNetworks.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
-      {:httpoison, "~> 2.1"},
-      {:poison, "~> 5.0"}
+      {:httpoison, "~> 1.8.2"},
+      {:poison, "~> 5.0"},
+      {:mimic, "~> 1.7"}
     ]
   end
 

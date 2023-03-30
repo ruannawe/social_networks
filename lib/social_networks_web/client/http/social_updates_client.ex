@@ -1,6 +1,8 @@
 defmodule SocialNetworksWeb.Client.Http.SocialUpdatesClient do
   alias SocialNetworksWeb.Client.Http.BaseClient
 
+  defstruct base_client: nil
+
   def get(params) do
     body = BaseClient.get(params[:url])
 

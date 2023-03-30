@@ -8,6 +8,8 @@ defmodule SocialNetworks.Models.SocialUpdate do
         :ets.insert(:social_update, {x, []})
       end)
     end
+
+    {:ok, nil}
   end
 
   def lookup(social_network) do
