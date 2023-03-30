@@ -18,11 +18,13 @@ defmodule SocialNetworks.Application do
       {Finch, name: SocialNetworks.Finch},
       # Start the Endpoint (http/https)
       SocialNetworksWeb.Endpoint,
+
       # Start a worker by calling: SocialNetworks.Worker.start_link(arg)
       # {SocialNetworks.Worker, arg}
-
-      {SocialNetworksWeb.Jobs.SocialSync, []}
     ]
+
+    # Append custom child worker to children list
+    children = append_social_sync_worker(children)
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
@@ -36,5 +38,13 @@ defmodule SocialNetworks.Application do
   def config_change(changed, _new, removed) do
     SocialNetworksWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp append_social_sync_worker(children) do
+    if Mix.env() != :test do
+      children ++ [{SocialNetworksWeb.Jobs.SocialSync, []}]
+    else
+      children
+    end
   end
 end

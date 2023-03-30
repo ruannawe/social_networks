@@ -4,48 +4,70 @@ defmodule SocialNetworksWeb.Jobs.SocialSyncTest do
 
   alias SocialNetworks.Models.SocialUpdate
   alias SocialNetworksWeb.Jobs.SocialSync
+  alias SocialNetworksWeb.Client.Http.SocialUpdatesClient
 
-  describe "handle_info/2" do
-    test "Check if SocialSync child process is running in background" do
+  describe "set_updates/0" do
+    setup do
+      {:ok, true} = SocialUpdate.init()
+
+      Mimic.copy(SocialUpdatesClient)
+
+      :ok
+    end
+
+    test "Check if SocialSync child process is NOT running in background" do
       social_sync_pid = Process.whereis(SocialSync)
 
-      assert social_sync_pid != nil
+      assert social_sync_pid == nil
     end
 
-    test "Check if the social updates from Twitter are filled inside ETS database" do
-      Mimic.copy(SocialUpdate)
-
-      Mimic.expect(SocialUpdate, :lookup, fn _ ->
-        [{"twitter", [%{username: "John", content: "Hello Twitter!"}]}]
-      end)
-
-      response = SocialUpdate.lookup("twitter")
-
-      assert response == [{"twitter", [%{username: "John", content: "Hello Twitter!"}]}]
+    test "when the social updates from ALL social networks keys are empty" do
+      assert SocialUpdate.lookup("twitter") == []
+      assert SocialUpdate.lookup("facebook") == []
+      assert SocialUpdate.lookup("instagram") == []
     end
 
-    test "Check if the social updates from Facebook are filled inside ETS database" do
-      Mimic.copy(SocialUpdate)
+    test "when the social updates from Twitter are filled inside ETS database" do      
+      #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
+      call_times = 3
 
-      Mimic.expect(SocialUpdate, :lookup, fn _ ->
-        [{"facebook", [%{username: "John", content: "Hello Facebook!"}]}]
+      Mimic.expect(SocialUpdatesClient, :get, call_times, fn _ ->
+        [%{username: "John", content: "Hello Twitter!"}]
       end)
 
-      response = SocialUpdate.lookup("facebook")
+      SocialSync.set_updates()
 
-      assert response == [{"facebook", [%{username: "John", content: "Hello Facebook!"}]}]
+      assert SocialUpdate.lookup("twitter") == [%{username: "John", content: "Hello Twitter!"}]
     end
 
-    test "Check if the social updates from Instagram are filled inside ETS database" do
-      Mimic.copy(SocialUpdate)
+    test "when the social updates from Facebook are filled inside ETS database" do
+      #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
+      call_times = 3
 
-      Mimic.expect(SocialUpdate, :lookup, fn _ ->
-        [{"instagram", [%{username: "John", content: "Hello Instagram!"}]}]
+      Mimic.expect(SocialUpdatesClient, :get, call_times, fn _ ->
+        [%{username: "John", content: "Hello Facebook!"}]
       end)
 
-      response = SocialUpdate.lookup("instagram")
+      SocialSync.set_updates()
 
-      assert response == [{"instagram", [%{username: "John", content: "Hello Instagram!"}]}]
+      assert SocialUpdate.lookup("facebook") == [%{username: "John", content: "Hello Facebook!"}]
+    end
+
+    test "when the social updates from Instagram are filled inside ETS database" do
+      #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
+      call_times = 3
+
+      Mimic.expect(SocialUpdatesClient, :get, call_times, fn param ->
+        IO.inspect(param)
+
+        [%{username: "John", content: "Hello Twitter!"}]
+      end)
+
+      SocialSync.set_updates()
+
+      assert SocialUpdate.lookup("twitter") == [
+               %{username: "John", content: "Hello Twitter!"}
+             ]
     end
   end
 end

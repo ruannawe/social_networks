@@ -9,7 +9,6 @@ defmodule SocialNetworksWeb.Jobs.SocialSync do
   end
 
   def init([]) do
-    IO.inspect(SocialUpdate.init())
     {:ok, true} = SocialUpdate.init()
 
     schedule_job()
@@ -17,17 +16,7 @@ defmodule SocialNetworksWeb.Jobs.SocialSync do
     {:ok, nil}
   end
 
-  def handle_info(:job_timer, state) do
-    set_updates()
-    schedule_job()
-    {:noreply, state}
-  end
-
-  defp schedule_job() do
-    Process.send_after(self(), :job_timer, 1000)
-  end
-
-  defp set_updates() do
+  def set_updates() do
     Enum.each(social_networks(), fn social_network ->
       updates = SocialUpdatesClient.get(social_network)
 
@@ -36,7 +25,19 @@ defmodule SocialNetworksWeb.Jobs.SocialSync do
     end)
   end
 
-  defp social_networks() do
+  def handle_info(:job_timer, state) do
+    set_updates()
+
+    schedule_job()
+
+    {:noreply, state}
+  end
+
+  defp schedule_job() do
+    Process.send_after(self(), :job_timer, 1000)
+  end
+
+  def social_networks() do
     [
       %{url: Application.get_env(:social_networks, :twitter_url), name: :twitter},
       %{url: Application.get_env(:social_networks, :facebook_url), name: :facebook},
