@@ -9,7 +9,8 @@ defmodule SocialNetworksWeb.Jobs.SocialSync do
   end
 
   def init([]) do
-    SocialUpdate.init()
+    IO.inspect(SocialUpdate.init())
+    {:ok, true} = SocialUpdate.init()
 
     schedule_job()
 

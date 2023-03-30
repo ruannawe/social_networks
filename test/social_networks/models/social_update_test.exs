@@ -1,5 +1,5 @@
 defmodule SocialNetworks.Models.SocialUpdateTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   alias SocialNetworks.Models.SocialUpdate
 
@@ -7,7 +7,7 @@ defmodule SocialNetworks.Models.SocialUpdateTest do
     setup do
       # Set up the ETS table with some sample data
 
-      SocialUpdate.init()
+      {:ok, true} = SocialUpdate.init()
 
       :ets.insert(
         :social_update,

@@ -1,5 +1,5 @@
 defmodule SocialNetworksWeb.Client.Http.SocialUpdatesClientTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   alias SocialNetworksWeb.Client.Http.SocialUpdatesClient
 
   test "get updates from Twitter" do

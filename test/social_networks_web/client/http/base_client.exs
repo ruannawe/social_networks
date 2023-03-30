@@ -1,5 +1,5 @@
 defmodule SocialNetworksWeb.Client.Http.BaseClientTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   use Mimic
 
   describe "get/1" do

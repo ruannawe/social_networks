@@ -1,5 +1,5 @@
 defmodule SocialNetworksWeb.PageControllerTest do
-  use SocialNetworksWeb.ConnCase
+  use SocialNetworksWeb.ConnCase, async: true
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

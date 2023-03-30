@@ -4,12 +4,12 @@ defmodule SocialNetworks.Models.SocialUpdate do
       :ets.new(:social_update, [:set, :public, :named_table])
 
       available_social_networks()
-      |> Enum.each(fn x ->
+      |> Enum.map(fn x ->
         :ets.insert(:social_update, {x, []})
       end)
     end
 
-    {:ok, nil}
+    {:ok, :ets.whereis(:social_update) != :undefined}
   end
 
   def lookup(social_network) do
