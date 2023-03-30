@@ -57,9 +57,7 @@ defmodule SocialNetworksWeb.Jobs.SocialSyncTest do
       #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
       call_times = 3
 
-      Mimic.expect(SocialUpdatesClient, :get, call_times, fn param ->
-        IO.inspect(param)
-
+      Mimic.expect(SocialUpdatesClient, :get, call_times, fn _ ->
         [%{username: "John", content: "Hello Twitter!"}]
       end)
 

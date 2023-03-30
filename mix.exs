@@ -52,7 +52,7 @@ defmodule SocialNetworks.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 1.8.2"},
       {:poison, "~> 5.0"},
-      {:mimic, "~> 1.7"}
+      {:mimic, "~> 1.7", only: :test}
     ]
   end
 
