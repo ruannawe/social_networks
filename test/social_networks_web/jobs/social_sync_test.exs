@@ -27,8 +27,8 @@ defmodule SocialNetworksWeb.Jobs.SocialSyncTest do
       assert SocialUpdate.lookup("instagram") == []
     end
 
-    test "when the social updates from Twitter are filled inside ETS database" do      
-      #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
+    test "when the social updates from Twitter are filled inside ETS database" do
+      # number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
       call_times = 3
 
       Mimic.expect(SocialUpdatesClient, :get, call_times, fn _ ->
@@ -41,7 +41,7 @@ defmodule SocialNetworksWeb.Jobs.SocialSyncTest do
     end
 
     test "when the social updates from Facebook are filled inside ETS database" do
-      #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
+      # number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
       call_times = 3
 
       Mimic.expect(SocialUpdatesClient, :get, call_times, fn _ ->
@@ -54,7 +54,7 @@ defmodule SocialNetworksWeb.Jobs.SocialSyncTest do
     end
 
     test "when the social updates from Instagram are filled inside ETS database" do
-      #number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
+      # number of elements in function SocialNetworks.Models.SocialUpdate.available_social_networks()
       call_times = 3
 
       Mimic.expect(SocialUpdatesClient, :get, call_times, fn _ ->

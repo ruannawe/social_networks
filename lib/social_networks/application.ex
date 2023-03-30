@@ -17,7 +17,7 @@ defmodule SocialNetworks.Application do
       # Start Finch
       {Finch, name: SocialNetworks.Finch},
       # Start the Endpoint (http/https)
-      SocialNetworksWeb.Endpoint,
+      SocialNetworksWeb.Endpoint
 
       # Start a worker by calling: SocialNetworks.Worker.start_link(arg)
       # {SocialNetworks.Worker, arg}
