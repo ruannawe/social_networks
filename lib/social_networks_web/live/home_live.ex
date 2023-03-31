@@ -25,7 +25,16 @@ defmodule SocialNetworksWeb.HomeLive do
         </svg>
 
         <%= for twitter <- @twitter_updates do %>
-          <div style="color: white"><%= twitter.content %></div>
+          <div class="mt-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <%= twitter.username %>
+              </h5>
+            </a>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              <%= twitter.content %>
+            </p>
+          </div>
         <% end %>
       </div>
 
@@ -40,7 +49,16 @@ defmodule SocialNetworksWeb.HomeLive do
         </svg>
 
         <%= for facebook <- @facebook_updates do %>
-          <div><%= facebook.content %></div>
+          <div class="mt-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <%= facebook.username %>
+              </h5>
+            </a>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              <%= facebook.content %>
+            </p>
+          </div>
         <% end %>
       </div>
 
@@ -55,7 +73,16 @@ defmodule SocialNetworksWeb.HomeLive do
         </svg>
 
         <%= for instagram <- @instagram_updates do %>
-          <div style="color: white"><%= instagram.content %></div>
+          <div class="mt-5 max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <%= instagram.username %>
+              </h5>
+            </a>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              <%= instagram.content %>
+            </p>
+          </div>
         <% end %>
       </div>
     </div>
