@@ -12,7 +12,7 @@ defmodule SocialNetworksWeb.PageController do
     updates = [
       %{twitter: SocialUpdate.lookup("twitter")},
       %{facebook: SocialUpdate.lookup("facebook")},
-      %{instagram: SocialUpdate.lookup("instagram")},
+      %{instagram: SocialUpdate.lookup("instagram")}
     ]
 
     json(conn, updates)

@@ -1,12 +1,3 @@
-# <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-#     <a href="#">
-#         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">@ruannawe</h5>
-#     </a>
-#     <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-#       Bla bla Bla blaBla blaBla blaBla blaBla blaBla blaBla blaBla blaBla blaBla blaBla blaBla bla
-#     </p>
-# </div>
-
 defmodule SocialNetworksWeb.HomeLive do
   use SocialNetworksWeb, :live_view
   alias SocialNetworks.Models.SocialUpdate
@@ -90,10 +81,25 @@ defmodule SocialNetworksWeb.HomeLive do
   end
 
   def mount(_params, _session, socket) do
-    socket = assign(socket, :twitter_updates, SocialUpdate.lookup("twitter"))
-    socket = assign(socket, :facebook_updates, SocialUpdate.lookup("facebook"))
-    socket = assign(socket, :instagram_updates, SocialUpdate.lookup("instagram"))
+    if connected?(socket) do
+      :timer.send_interval(1000, self(), :tick)
+    end
+
+    socket = assign_updates(socket)
 
     {:ok, socket}
+  end
+
+  def handle_info(:tick, socket) do
+    socket = assign_updates(socket)
+
+    {:noreply, socket}
+  end
+
+  defp assign_updates(socket) do
+    socket
+    |> assign(:twitter_updates, SocialUpdate.lookup("twitter"))
+    |> assign(:facebook_updates, SocialUpdate.lookup("facebook"))
+    |> assign(:instagram_updates, SocialUpdate.lookup("instagram"))
   end
 end

@@ -19,7 +19,7 @@ defmodule SocialNetworksWeb.Router do
 
     get("/", PageController, :home)
     get("/social_updates", PageController, :social_updates)
-    
+
     live("/social_updates_live", HomeLive)
   end
 
