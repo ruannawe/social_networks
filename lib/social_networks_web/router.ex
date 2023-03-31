@@ -17,9 +17,10 @@ defmodule SocialNetworksWeb.Router do
   scope "/", SocialNetworksWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-
-    live("/social_updates", HomeLive)
+    get("/", PageController, :home)
+    get("/social_updates", PageController, :social_updates)
+    
+    live("/social_updates_live", HomeLive)
   end
 
   # Other scopes may use custom stacks.
